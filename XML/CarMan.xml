@@ -1,0 +1,104 @@
+<Schema name="dwh_uas">
+  <Dimension visible="true" highCardinality="false" name="Employee">
+    <Hierarchy name="Employee" visible="true" hasAll="true" primaryKey="EmployeeID">
+      <Table name="employee_dim">
+      </Table>
+      <Level name="EmployeeID" visible="true" column="EmployeeID" type="Numeric" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="FirstName" visible="true" column="FirstName" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="LastName" visible="true" column="LastName" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Department" visible="true" column="Department" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension visible="true" highCardinality="false" name="Location">
+    <Hierarchy name="Location" visible="true" hasAll="true" primaryKey="LocationID">
+      <Table name="location_dim">
+      </Table>
+      <Level name="LocationID" visible="true" column="LocationID" type="Numeric" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="PlantName" visible="true" column="PlantName" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Country" visible="true" column="Country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Region" visible="true" column="Region" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="City" visible="true" column="City" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Address" visible="true" column="Address" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension visible="true" highCardinality="false" name="ProductionLine">
+    <Hierarchy name="ProductionLine" visible="true" hasAll="true" primaryKey="LineID">
+      <Table name="productionline_dim">
+      </Table>
+      <Level name="LineID" visible="true" column="LineID" type="Numeric" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="LineName" visible="true" column="LineName" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Capacity" visible="true" column="Capacity" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="LineNumb" visible="true" column="LineNumb" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension visible="true" highCardinality="false" name="Product">
+    <Hierarchy name="Product" visible="true" hasAll="true" primaryKey="ProductID">
+      <Table name="product_dim">
+      </Table>
+      <Level name="ProductID" visible="true" column="ProductID" type="Numeric" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="ModelName" visible="true" column="ModelName" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Manufacturer" visible="true" column="Manufacturer" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="ProductionYear" visible="true" column="ProductionYear" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="VehicleType" visible="true" column="VehicleType" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="EngineType" visible="true" column="EngineType" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="TransmissionType" visible="true" column="TransmissionType" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Color" visible="true" column="Color" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension visible="true" highCardinality="false" name="Supplier">
+    <Hierarchy name="Supplier" visible="true" hasAll="true" primaryKey="SupplierID">
+      <Table name="supplier_dim">
+      </Table>
+      <Level name="SupplierID" visible="true" column="SupplierID" type="Numeric" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="SupplierName" visible="true" column="SupplierName" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Country" visible="true" column="Country" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="Region" visible="true" column="Region" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+      <Level name="ContactPerson" visible="true" column="ContactPerson" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="ProductionCube" visible="true" cache="true" enabled="true">
+    <Table name="production_fact">
+    </Table>
+    <DimensionUsage source="Employee" name="Employee" visible="true" foreignKey="EmployeeID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Location" name="Location" visible="true" foreignKey="LocationID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="ProductionLine" name="ProductionLine" visible="true" foreignKey="LineID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Product" name="Product" visible="true" foreignKey="ProductID" highCardinality="false">
+    </DimensionUsage>
+    <DimensionUsage source="Supplier" name="Supplier" visible="true" foreignKey="SupplierID" highCardinality="false">
+    </DimensionUsage>
+    <Measure name="QuantityProduced" column="QuantityProduced" formatString="#,###" aggregator="sum">
+    </Measure>
+    <Measure name="Revenue" column="Revenue" formatString="#,###" aggregator="sum">
+    </Measure>
+  </Cube>
+</Schema>
